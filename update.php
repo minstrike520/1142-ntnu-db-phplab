@@ -11,40 +11,23 @@
 		
 		<?php
 
-			// ******** update your personal settings ******** 
-			$servername = "";
-			$username = "";
-			$password = "";
-			$dbname = "";
-
-			// Connect MySQL server
-			$conn = new mysqli($servername, $username, $password, $dbname);
-			
-			// set up char set
-			if (!$conn->set_charset("utf8")) {
-				printf("Error loading character set utf8: %s\n", $conn->error);
-				exit();
-			}
-			
-			// Check connection
-			if ($conn->connect_error) {
-				die("Connection failed: " . $conn->connect_error);
-			} 
+			include_once 'config.php';	
 
 			$id = $_GET['id'];
 
 			if (isset($id)) {
 				
-				$select_sql = ""; // TODO 
+				$select_sql = "SELECT * FROM $tablename WHERE id='$id';";
 				$result = $conn->query($select_sql);
 
 				if ($result->num_rows > 0) {
 					$row = mysqli_fetch_array ( $result, MYSQLI_ASSOC );
 					
+					echo "<input type='hidden' name='id' value='" . $row["id"] . "' />";
 					echo "<tr>
 						<th>編號</th>
-						
-						</tr>";	// TODO
+						<td bgcolor='#FFFFFF'>" . $id . "</td>
+						</tr>";
 					
 					echo "<tr>
 					<th>標題</th>
